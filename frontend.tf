@@ -36,3 +36,11 @@ resource "aws_instance" "packagecloud_frontend" {
     key_name = "${var.key_pair_name}"
     security_groups = ["packagecloud_sg"]
 }
+
+resource "aws_route53_record" "packages" {
+   zone_id = "${var.hosted_zone_id}"
+   name = "packages.${var.domain_name}"
+   type = "A"
+   ttl = "300"
+   records = ["${aws_instance.packagecloud_frontend.public_ip}"]
+}
