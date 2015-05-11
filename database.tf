@@ -7,8 +7,8 @@ resource "aws_db_instance" "packagecloud_database" {
     engine = "mysql"
     engine_version = "5.5.41"
     instance_class = "db.m3.large"
-    username = "awsuser"
-    password = "dbpassword123!"
+    username = "${var.database_user}"
+    password = "${var.database_password}"
     db_subnet_group_name = "default"
     parameter_group_name = "default.mysql5.5"
 }
