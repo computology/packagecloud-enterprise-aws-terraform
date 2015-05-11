@@ -1,0 +1,5 @@
+*.tfstate
+*.tfvars
+.DS_Store
+*.tfstate.backup
+
