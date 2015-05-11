@@ -31,7 +31,7 @@ resource "aws_security_group" "packagecloud_sg" {
 }
 
 resource "aws_instance" "packagecloud_frontend" {
-    ami = "ami-5189a661"
+    ami = "${var.ami_id}"
     instance_type = "m3.large"
     key_name = "${var.key_pair_name}"
     security_groups = ["packagecloud_sg"]
