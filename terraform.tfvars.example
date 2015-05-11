@@ -1,2 +1,3 @@
 aws_access_key = "AAAAAAAAAAAA"
 aws_secret_key = "ZZZZZZZZZZZZZZZ"
+key_pair_name = "my-keypair.pem"
