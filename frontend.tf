@@ -1,6 +1,6 @@
 resource "aws_security_group" "packagecloud_sg" {
   name = "packagecloud_sg"
-  description = "Web and SSH"
+  description = "Web, SSH and Mysql"
 
   ingress {
       from_port = 80
@@ -39,7 +39,7 @@ resource "aws_security_group" "packagecloud_sg" {
 
   egress {
       from_port = 3306
-      to_port = 3306 
+      to_port = 3306
       protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
@@ -64,6 +64,7 @@ resource "aws_instance" "packagecloud_frontend" {
     instance_type = "m3.large"
     key_name = "${var.key_pair_name}"
     security_groups = ["packagecloud_sg"]
+    depends_on = ["aws_security_group.packagecloud_sg", "aws_db_instance.packagecloud_database"]
 }
 
 resource "aws_route53_record" "packages" {
@@ -71,5 +72,6 @@ resource "aws_route53_record" "packages" {
    name = "packages.${var.domain_name}"
    type = "A"
    ttl = "300"
+   depends_on = ["aws_instance.packagecloud_frontend"]
    records = ["${aws_instance.packagecloud_frontend.public_ip}"]
 }

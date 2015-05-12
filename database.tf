@@ -19,4 +19,5 @@ resource "aws_route53_record" "db" {
    type = "CNAME"
    ttl = "300"
    records = ["${aws_db_instance.packagecloud_database.address}"]
+   depends_on = ["aws_db_instance.packagecloud_database"]
 }
